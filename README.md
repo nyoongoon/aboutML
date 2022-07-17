@@ -330,4 +330,33 @@ print(rmse)
 ## => 절편과 계수들이 x와 y간에 관계를 설명. 모델은 어떻게 절편과 계수를 적절하게 찾아줄 수 있을까.
 ## rmse => 선형회귀모델의 계수를 찾는데 사용이 됨.
 ## 일단 모델은 아무 절편이나 계수를 집어넣는다. -> rmse가 최소가 되는 절편과 계수를 찾아감...
+# 선형 모델이란 ?
+## 최소 자승법 => 각각의 점으로부터 직선까지의 거리를 재고 => 전반적인 거리가 작아질 때까찌 직선을 이동.
+```
+
+# Content-Based Recommendation2 (선형모델) - 코드구현
+
+```python
+import pandas as pd
+import numpy as np
+
+## Read Data
+ratings = pd.read_pickle('./data/ml-latest-sm/ratings_updated.p')
+genres = pd.read_pickle('./data/ml-latest-sm/genrs.p')
+```
+## 샘플 작업 #
+```python
+## User Profile  유저 프로파일링 => 유저가 어떤 특성을 갖고 있는지, 어떤 장르를 선호하는지에 대한 프로파일링, 그것을 기준으로 해서 새로운 영화가 들어왔을 때, 예측이 가능.
+## 1. 샘플데이터로 유저 프로파일 만들어보고
+## 2. 이 원리를 전체데이터에 적용해보기
+user414 = ratings[ratings['userId'] == 414]
+user414.sample()
+user414 = user414.merge(genres, left_on='movieId', right_index=True)
+
+## 훈련 데이터, 테스트 데이터 나누기
+from sklearn.model_selection import train_test_split
+
+# X => 해당 영화의 장르 정보. y => 해당 영화의 user 평점
+# X == feature => y를 예측하기 위해 필요한 정보들. y == label => 정답
+X_train, X_test, y_train, y_test = train_test_split(user414[genres.columns], user414['rating'], random_state=42, test_size=.1)
 ```
