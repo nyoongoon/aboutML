@@ -360,3 +360,29 @@ from sklearn.model_selection import train_test_split
 # X == feature => y를 예측하기 위해 필요한 정보들. y == label => 정답
 X_train, X_test, y_train, y_test = train_test_split(user414[genres.columns], user414['rating'], random_state=42, test_size=.1)
 ```
+
+
+# 판다스 정보
+
+# 열 단위로 데이터 추출하기
+
+```python
+# 리스트에 열 이름 리스트를 전달하면 여러개의 열을 한 번에 추출 가능.
+subset = df[['country', 'continent', 'year']]
+```
+
+# 행 단위로 데이터 추출하기
+
+### 인덱스와 행번호
+
+- 판다스에서는 데이터의 순서(파이썬 리스트의 인덱스)를 행 번호라고 부름. 정수만으로 데이터 조회, 추출 가능. 실제 데이터프레임에서는 확인할 수 없는 값.
+- 판다스에서 인덱스 보통 0으로 시작하지만, 행 데이터가 추가, 삭제되면 언제든지 변할 수 있으며 숫자가 아니라 문자열도 사용 가능. 인덱스는 df에서 확인할 수 있음(행의 이름 개념)
+
+## loc 속성 : 인덱스를 기준으로 행 데이터 추출
+
+- loc 속성에 대괄호를 이용하여 인덱스를 전달하면 행 데이터를 추출할 수 있음.
+
+```python
+# 여러 인덱스 한번에 추출 -> 리스트에 원하는 인덱스 리스트 담아 loc 속성에 전달
+print(df.loc[[0, 99, 999]])
+```
